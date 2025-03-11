@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h2>Enter Your Details</h2>
+        <form id="detailsForm">
+            <div class="form-group">
+                <label for="name">Enter your name</label>
+                <input type="text" class="form-control" id="name" placeholder="Please fill out this field" required>
+            </div>
+            <div class="form-group">
+                <label for="salary">Enter your salary</label>
+                <input type="number" class="form-control" id="salary" placeholder="Enter your salary" required>
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" class="form-control" id="date" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-secondary" id="resetButton">Reset</button>
+            <button type="button" class="btn btn-info" onclick="handleBack()">Back</button>
+        </form>
+
+        <div id="displayDetails" class="mt-5" style="display: none;">
+            <h3>Entered Details:</h3>
+            <p><strong>Name:</strong> <span id="displayName"></span></p>
+            <p><strong>Salary:</strong> <span id="displaySalary"></span></p>
+            <p><strong>Date:</strong> <span id="displayDate"></span></p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Handle form submission
+        document.getElementById('detailsForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+
+            // Get the values from the form
+            const name = document.getElementById('name').value;
+            const salary = document.getElementById('salary').value;
+            const date = document.getElementById('date').value;
+
+            // Display the values
+            document.getElementById('displayName').textContent = name;
+            document.getElementById('displaySalary').textContent = parseFloat(salary).toLocaleString('en-US', { 
+    style: 'currency', 
+    currency: 'USD' 
+});
+
+            document.getElementById('displayDate').textContent = date;
+
+            // Show the display section
+            document.getElementById('displayDetails').style.display = 'block';
+        });
+
+        // Handle reset button click
+        document.getElementById('resetButton').addEventListener('click', function() {
+            // Clear the displayed details
+            document.getElementById('displayName').textContent = '';
+            document.getElementById('displaySalary').textContent = '';
+            document.getElementById('displayDate').textContent = '';
+
+            // Hide the display section
+            document.getElementById('displayDetails').style.display = 'none';
+        });
+
+        // Handle back button click
+        function handleBack() {
+            // Clear the form fields
+            document.getElementById('detailsForm').reset();
+
+            // Clear the displayed details
+            document.getElementById('displayName').textContent = '';
+            document.getElementById('displaySalary').textContent = '';
+            document.getElementById('displayDate').textContent = '';
+
+            // Hide the display section
+            document.getElementById('displayDetails').style.display = 'none';
+
+            // Go back to the previous page
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
